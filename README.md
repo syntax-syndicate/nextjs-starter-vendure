@@ -53,10 +53,10 @@
 - Order tracking with status
 - Detailed order information
 
-## Roadmap
-
-- Multi-currency support (coming soon)
-- Multi-language with next-intl (coming soon)
+**Internationalization**
+- Multi-language support via next-intl (English & German out of the box)
+- Multi-currency support with persistent currency selection
+- Locale-aware price formatting
 
 ## Getting Started
 
