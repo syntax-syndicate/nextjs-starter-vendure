@@ -44,13 +44,13 @@ export function ProductCard({product: productProp}: ProductCardProps) {
                             product.priceWithTax.min !== product.priceWithTax.max ? (
                                 <>
                                     <span className="text-xs font-normal text-muted-foreground mr-1">{t('from')}</span>
-                                    <Price value={product.priceWithTax.min}/>
+                                    <Price value={product.priceWithTax.min} currencyCode={product.currencyCode}/>
                                 </>
                             ) : (
-                                <Price value={product.priceWithTax.min}/>
+                                <Price value={product.priceWithTax.min} currencyCode={product.currencyCode}/>
                             )
                         ) : product.priceWithTax.__typename === 'SinglePrice' ? (
-                            <Price value={product.priceWithTax.value}/>
+                            <Price value={product.priceWithTax.value} currencyCode={product.currencyCode}/>
                         ) : null}
                     </p>
                 </Suspense>

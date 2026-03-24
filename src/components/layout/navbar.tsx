@@ -5,6 +5,7 @@ import {NavbarCart} from '@/components/layout/navbar/navbar-cart';
 import {NavbarUser} from '@/components/layout/navbar/navbar-user';
 import {ThemeSwitcher} from '@/components/layout/navbar/theme-switcher';
 import {LanguagePicker} from '@/components/layout/navbar/language-picker';
+import {CurrencyPickerWrapper} from '@/components/layout/navbar/currency-picker-wrapper';
 import {MobileNavWrapper} from '@/components/layout/navbar/mobile-nav-wrapper';
 import {Suspense} from "react";
 import {SearchInput} from '@/components/layout/search-input';
@@ -37,6 +38,9 @@ export function Navbar() {
                         </div>
                         <Suspense>
                             <LanguagePicker />
+                        </Suspense>
+                        <Suspense>
+                            <CurrencyPickerWrapper />
                         </Suspense>
                         <Suspense>
                             <ThemeSwitcher />

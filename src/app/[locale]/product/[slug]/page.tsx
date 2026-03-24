@@ -31,16 +31,18 @@ import {
 } from '@/lib/metadata';
 import {getTranslations} from 'next-intl/server';
 import {toOgLocale} from '@/i18n/locale-utils';
+import {getActiveCurrencyCode} from '@/lib/currency-server';
 import {getRouteLocale} from '@/i18n/server';
 
-async function getProductData(slug: string) {
+async function getProductData(slug: string, currencyCode: string) {
     'use cache';
     cacheLife('hours');
 
     const locale = await getRouteLocale();
-    cacheTag(`product-${slug}-${locale}`);
+    cacheTag(`product-${slug}-${locale}-${currencyCode}`);
+    cacheTag('products');
 
-    return await query(GetProductDetailQuery, {slug}, {languageCode: locale});
+    return await query(GetProductDetailQuery, {slug}, {languageCode: locale, currencyCode});
 }
 
 export async function generateMetadata({
@@ -48,7 +50,8 @@ export async function generateMetadata({
 }: PageProps<'/[locale]/product/[slug]'>): Promise<Metadata> {
     const { slug } = await params;
     const locale = await getRouteLocale();
-    const result = await getProductData(slug);
+    const currencyCode = await getActiveCurrencyCode();
+    const result = await getProductData(slug, currencyCode);
     const product = result.data.product;
 
     const t = await getTranslations({locale, namespace: 'Product'});
@@ -95,9 +98,10 @@ export default async function ProductDetailPage({params, searchParams}: PageProp
     const { slug } = await params;
     const searchParamsResolved = await searchParams;
     const locale = await getRouteLocale();
+    const currencyCode = await getActiveCurrencyCode();
     const t = await getTranslations({locale, namespace: 'Product'});
 
-    const result = await getProductData(slug);
+    const result = await getProductData(slug, currencyCode);
 
     const product = result.data.product;
 
@@ -142,7 +146,7 @@ export default async function ProductDetailPage({params, searchParams}: PageProp
 
                     {/* Right Column: Product Info */}
                     <div>
-                        <ProductInfo product={product} searchParams={searchParamsResolved} />
+                        <ProductInfo product={product} searchParams={searchParamsResolved} currencyCode={currencyCode} />
                     </div>
                 </div>
             </div>

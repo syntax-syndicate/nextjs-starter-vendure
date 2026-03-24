@@ -1,12 +1,9 @@
-import {locale as rootLocale} from 'next/root-params';
 import {hasLocale} from 'next-intl';
 import {getRequestConfig} from 'next-intl/server';
 import {routing} from './routing';
 
-export default getRequestConfig(async () => {
-    // Use rootLocale() instead of requestLocale to avoid headers() access,
-    // which breaks with cacheComponents: true (all RSCs are auto-cached).
-    const requested = (await rootLocale()) as string;
+export default getRequestConfig(async ({requestLocale}) => {
+    const requested = (await requestLocale) as string;
     const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
     return {
         locale,

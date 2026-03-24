@@ -13,7 +13,8 @@
     "signOut": "Abmelden",
     "greeting": "Hallo, {name}",
     "shoppingCart": "Warenkorb",
-    "switchLanguage": "Sprache wechseln"
+    "switchLanguage": "Sprache wechseln",
+    "switchCurrency": "Währung wechseln"
   },
   "Hero": {
     "title": "Entdecke hochwertige",

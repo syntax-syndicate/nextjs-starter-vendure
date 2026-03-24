@@ -1,4 +1,5 @@
 import type {Metadata} from 'next';
+import {getActiveCurrencyCode} from '@/lib/currency-server';
 import {getRouteLocale} from '@/i18n/server';
 import {getTranslations} from 'next-intl/server';
 import {query} from '@/lib/vendure/api';
@@ -26,19 +27,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CheckoutPage() {
     const locale = await getRouteLocale();
+    const currencyCode = await getActiveCurrencyCode();
     const t = await getTranslations({locale, namespace: 'Checkout'});
     const customer = await getActiveCustomer();
     const isGuest = !customer;
 
     const [orderRes, addressesRes, countries, shippingMethodsRes, paymentMethodsRes] =
         await Promise.all([
-            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true}),
+            query(GetActiveOrderForCheckoutQuery, {}, {useAuthToken: true, currencyCode}),
             isGuest
                 ? Promise.resolve({ data: { activeCustomer: null } })
                 : query(GetCustomerAddressesQuery, {}, {useAuthToken: true}),
             getAvailableCountriesCached(locale),
-            query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true}),
-            query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true}),
+            query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true, currencyCode}),
+            query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true, currencyCode}),
         ]);
 
     const activeOrder = orderRes.data.activeOrder;

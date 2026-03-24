@@ -48,9 +48,10 @@ interface ProductInfoProps {
         }>;
     };
     searchParams: { [key: string]: string | string[] | undefined };
+    currencyCode: string;
 }
 
-export function ProductInfo({product, searchParams}: ProductInfoProps) {
+export function ProductInfo({product, searchParams, currencyCode}: ProductInfoProps) {
     const t = useTranslations('Product');
     const pathname = usePathname();
     const router = useRouter();
@@ -146,7 +147,7 @@ export function ProductInfo({product, searchParams}: ProductInfoProps) {
                 <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{product.name}</h1>
                 {selectedVariant && (
                     <p className="text-2xl md:text-3xl text-muted-foreground font-semibold mt-3">
-                        <Price value={selectedVariant.priceWithTax}/>
+                        <Price value={selectedVariant.priceWithTax} currencyCode={currencyCode}/>
                     </p>
                 )}
             </div>

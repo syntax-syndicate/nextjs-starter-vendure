@@ -1,4 +1,5 @@
 import type {Metadata} from "next";
+import {Suspense} from "react";
 import {getRouteLocale} from "@/i18n/server";
 import {HeroSection} from "@/components/layout/hero-section";
 import {FeaturedProducts} from "@/components/commerce/featured-products";
@@ -43,7 +44,9 @@ export default async function Home() {
     return (
         <div className="min-h-screen">
             <HeroSection/>
-            <FeaturedProducts/>
+            <Suspense>
+                <FeaturedProducts/>
+            </Suspense>
 
             <section className="py-16 md:py-24 bg-muted/30">
                 <div className="container mx-auto px-4">
