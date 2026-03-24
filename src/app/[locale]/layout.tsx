@@ -93,7 +93,7 @@ export default async function LocaleLayout({children}: {children: React.ReactNod
             >
                 <NextIntlClientProvider locale={locale} messages={messages}>
                     <ThemeProvider>
-                        <Navbar locale={locale} />
+                        <Navbar />
                         {children}
                         <Footer/>
                         <Toaster/>

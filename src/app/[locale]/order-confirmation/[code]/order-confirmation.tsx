@@ -1,5 +1,3 @@
-import {query} from '@/lib/vendure/api';
-import {graphql} from '@/graphql';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {Check, ShoppingBag, ClipboardList} from 'lucide-react';
@@ -7,9 +5,11 @@ import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import {Separator} from '@/components/ui/separator';
 import {Price} from '@/components/commerce/price';
-import {notFound} from "next/navigation";
+import {notFound} from 'next/navigation';
 import {locale as rootLocale} from 'next/root-params';
 import {getTranslations} from 'next-intl/server';
+import {query} from '@/lib/vendure/api';
+import {graphql} from '@/graphql';
 
 const GetOrderByCodeQuery = graphql(`
     query GetOrderByCode($code: String!) {
@@ -50,28 +50,25 @@ const GetOrderByCodeQuery = graphql(`
     }
 `);
 
-export async function OrderConfirmation({params}: PageProps<'/[locale]/order-confirmation/[code]'>) {
+interface OrderConfirmationProps {
+    paramsPromise: Promise<{ locale: string; code: string }>;
+}
+
+export async function OrderConfirmation({paramsPromise}: OrderConfirmationProps) {
+    const {code} = await paramsPromise;
     const locale = (await rootLocale()) as string;
     const t = await getTranslations({locale, namespace: 'OrderConfirmation'});
-    const {code} = await params;
-    let order;
 
-    try {
-        const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true});
-        order = data.orderByCode;
-    }
-    catch (error) {
-        notFound();
-    }
+    const {data} = await query(GetOrderByCodeQuery, {code}, {useAuthToken: true});
+    const order = data.orderByCode;
 
     if (!order) {
-       notFound();
+        notFound();
     }
 
     return (
         <div className="container mx-auto px-4 py-16">
             <div className="max-w-3xl mx-auto">
-                {/* Celebratory header */}
                 <div className="text-center mb-10">
                     <div className="flex justify-center mb-6">
                         <div className="rounded-full bg-primary p-5 shadow-lg shadow-primary/25">

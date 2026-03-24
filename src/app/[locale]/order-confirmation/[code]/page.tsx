@@ -14,10 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default async function OrderConfirmationPage(props: PageProps<'/[locale]/order-confirmation/[code]'>) {
+export default function OrderConfirmationPage(props: PageProps<'/[locale]/order-confirmation/[code]'>) {
     return (
         <Suspense fallback={<div className="container mx-auto px-4 py-16 text-center">Loading...</div>}>
-            <OrderConfirmation {...props} />
+            <OrderConfirmation paramsPromise={props.params} />
         </Suspense>
     );
 }
