@@ -54,18 +54,10 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
             <Button
                 variant="outline"
                 size="icon"
-                asChild
+                render={currentPage !== 1 ? <Link href={createPageUrl(currentPage - 1)} /> : undefined}
                 disabled={currentPage === 1}
             >
-                {currentPage === 1 ? (
-                    <span className="cursor-not-allowed">
-                        <ChevronLeft className="h-4 w-4"/>
-                    </span>
-                ) : (
-                    <Link href={createPageUrl(currentPage - 1)}>
-                        <ChevronLeft className="h-4 w-4"/>
-                    </Link>
-                )}
+                <ChevronLeft className="h-4 w-4"/>
             </Button>
 
             {pages.map((page, index) => {
@@ -85,14 +77,10 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
                         key={pageNum}
                         variant={isActive ? 'default' : 'outline'}
                         size="icon"
-                        asChild={!isActive}
+                        render={!isActive ? <Link href={createPageUrl(pageNum)} /> : undefined}
                         disabled={isActive}
                     >
-                        {isActive ? (
-                            <span>{pageNum}</span>
-                        ) : (
-                            <Link href={createPageUrl(pageNum)}>{pageNum}</Link>
-                        )}
+                        {pageNum}
                     </Button>
                 );
             })}
@@ -100,18 +88,10 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
             <Button
                 variant="outline"
                 size="icon"
-                asChild
+                render={currentPage !== totalPages ? <Link href={createPageUrl(currentPage + 1)} /> : undefined}
                 disabled={currentPage === totalPages}
             >
-                {currentPage === totalPages ? (
-                    <span className="cursor-not-allowed">
-                        <ChevronRight className="h-4 w-4"/>
-                    </span>
-                ) : (
-                    <Link href={createPageUrl(currentPage + 1)}>
-                        <ChevronRight className="h-4 w-4"/>
-                    </Link>
-                )}
+                <ChevronRight className="h-4 w-4"/>
             </Button>
         </nav>
     );

@@ -17,31 +17,21 @@ export async function NavbarUser() {
 
     if (!customer) {
         return (
-            <Button variant="ghost" asChild>
-                <LoginButton isLoggedIn={false}/>
-            </Button>
+            <Button render={<LoginButton isLoggedIn={false} />} variant="ghost" />
         );
     }
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost">
-                    <User className="h-5 w-5"/>
-                    Hi, {customer.firstName}
-                </Button>
+            <DropdownMenuTrigger render={<Button variant="ghost" />}>
+                <User className="h-5 w-5"/>
+                Hi, {customer.firstName}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem asChild>
-                    <Link href="/account/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                    <Link href="/account/orders">Orders</Link>
-                </DropdownMenuItem>
+                <DropdownMenuItem render={<Link href="/account/profile" />}>Profile</DropdownMenuItem>
+                <DropdownMenuItem render={<Link href="/account/orders" />}>Orders</DropdownMenuItem>
                 <DropdownMenuSeparator/>
-                <DropdownMenuItem asChild>
-                    <LoginButton isLoggedIn={true}/>
-                </DropdownMenuItem>
+                <DropdownMenuItem render={<LoginButton isLoggedIn={true} />} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

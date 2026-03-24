@@ -24,9 +24,7 @@ async function VerifyEmailContent({searchParams}: {searchParams: Promise<Record<
                     <p className="text-sm text-muted-foreground mb-4">
                         Please check your email for the correct verification link, or request a new one from your profile page.
                     </p>
-                    <Button asChild>
-                        <Link href="/account/profile">Go to Profile</Link>
-                    </Button>
+                    <Button render={<Link href="/account/profile" />}>Go to Profile</Button>
                 </CardContent>
             </Card>
         );
@@ -49,9 +47,7 @@ async function VerifyEmailContent({searchParams}: {searchParams: Promise<Record<
                         <p className="text-sm text-muted-foreground mb-4">
                             Your email address has been changed. You can now use your new email address to sign in.
                         </p>
-                        <Button asChild>
-                            <Link href="/account/profile">Go to Profile</Link>
-                        </Button>
+                        <Button render={<Link href="/account/profile" />}>Go to Profile</Button>
                     </CardContent>
                 </Card>
             );
@@ -69,9 +65,7 @@ async function VerifyEmailContent({searchParams}: {searchParams: Promise<Record<
                     <p className="text-sm text-muted-foreground mb-4">
                         The verification link may have expired or already been used. Please request a new verification email from your profile page.
                     </p>
-                    <Button asChild>
-                        <Link href="/account/profile">Go to Profile</Link>
-                    </Button>
+                    <Button render={<Link href="/account/profile" />}>Go to Profile</Button>
                 </CardContent>
             </Card>
         );
@@ -88,9 +82,7 @@ async function VerifyEmailContent({searchParams}: {searchParams: Promise<Record<
                     <p className="text-sm text-muted-foreground mb-4">
                         Please try again later or contact support if the problem persists.
                     </p>
-                    <Button asChild>
-                        <Link href="/account/profile">Go to Profile</Link>
-                    </Button>
+                    <Button render={<Link href="/account/profile" />}>Go to Profile</Button>
                 </CardContent>
             </Card>
         );

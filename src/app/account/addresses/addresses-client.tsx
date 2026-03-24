@@ -180,14 +180,8 @@ export function AddressesClient({ addresses, countries }: AddressesClientProps) 
                                         )}
                                     </div>
                                     <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                aria-label="Address actions"
-                                            >
+                                        <DropdownMenuTrigger render={<Button variant="ghost" size="icon" aria-label="Address actions" />}>
                                                 <MoreVertical className="h-4 w-4" />
-                                            </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
                                             <DropdownMenuItem onClick={() => handleEdit(address)}>

@@ -82,12 +82,11 @@ export default function CheckoutFlow() {
     <div className="grid lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2">
         <Accordion
-          type="single"
-          collapsible
-          value={currentStep}
+          value={[currentStep]}
           onValueChange={(value) => {
-            if (value && canAccessStep(value as CheckoutStep)) {
-              setCurrentStep(value as CheckoutStep);
+            const step = value[0] as CheckoutStep | undefined;
+            if (step && canAccessStep(step)) {
+              setCurrentStep(step);
             }
           }}
           className="space-y-4"

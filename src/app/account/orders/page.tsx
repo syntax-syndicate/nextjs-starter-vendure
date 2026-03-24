@@ -80,12 +80,8 @@ export default async function OrdersPage(props: PageProps<'/account/orders'>) {
                                 {orders.map((order) => (
                                     <TableRow key={order.id} className="hover:bg-muted/50">
                                         <TableCell className="font-medium">
-                                            <Button asChild variant="outline">
-                                                <Link
-                                                    href={`/account/orders/${order.code}`}
-                                                >
+                                            <Button render={<Link href={`/account/orders/${order.code}`} />} variant="outline">
                                                     {order.code} <ArrowRightIcon/>
-                                                </Link>
                                             </Button>
                                         </TableCell>
                                         <TableCell>

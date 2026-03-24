@@ -24,7 +24,8 @@ export function SortDropdown() {
 
     const currentSort = searchParams.get('sort') || 'name-asc';
 
-    const handleSortChange = (value: string) => {
+    const handleSortChange = (value: string | null) => {
+        if (!value) return;
         const params = new URLSearchParams(searchParams);
         params.set('sort', value);
         params.delete('page'); // Reset to page 1 when sort changes
@@ -32,7 +33,7 @@ export function SortDropdown() {
     };
 
     return (
-        <Select value={currentSort} onValueChange={handleSortChange}>
+        <Select value={currentSort} onValueChange={handleSortChange} items={sortOptions}>
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Sort by"/>
             </SelectTrigger>

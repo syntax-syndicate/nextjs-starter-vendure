@@ -136,7 +136,7 @@ export default async function ProductDetailPage({params, searchParams}: PageProp
             <section className="py-16 bg-muted/30">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
-                    <Accordion type="single" collapsible className="w-full">
+                    <Accordion className="w-full">
                         <AccordionItem value="shipping">
                             <AccordionTrigger>What are your shipping options?</AccordionTrigger>
                             <AccordionContent>
