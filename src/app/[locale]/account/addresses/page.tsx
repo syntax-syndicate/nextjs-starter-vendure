@@ -1,13 +1,17 @@
 import type {Metadata} from 'next';
 import {locale as rootLocale} from 'next/root-params';
 import { query } from '@/lib/vendure/api';
-
-export const metadata: Metadata = {
-    title: 'Addresses',
-};
 import { GetCustomerAddressesQuery, GetAvailableCountriesQuery } from '@/lib/vendure/queries';
 import { AddressesClient } from './addresses-client';
 import {getTranslations} from 'next-intl/server';
+
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Account'});
+    return {
+        title: t('addressesPageTitle'),
+    };
+}
 
 export default async function AddressesPage(_props: PageProps<'/[locale]/account/addresses'>) {
     const locale = (await rootLocale()) as string;

@@ -1,9 +1,5 @@
 import type {Metadata} from 'next';
 import {query} from '@/lib/vendure/api';
-
-export const metadata: Metadata = {
-    title: 'My Orders',
-};
 import {GetCustomerOrdersQuery} from '@/lib/vendure/queries';
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from '@/components/ui/table';
 import {
@@ -23,6 +19,14 @@ import {formatDate} from '@/lib/format';
 import { Link, redirect } from '@/i18n/navigation';
 import {locale as rootLocale} from 'next/root-params';
 import {getTranslations} from 'next-intl/server';
+
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Account'});
+    return {
+        title: t('ordersPageTitle'),
+    };
+}
 
 const ITEMS_PER_PAGE = 10;
 

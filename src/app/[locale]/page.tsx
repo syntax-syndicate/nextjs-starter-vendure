@@ -5,24 +5,30 @@ import {FeaturedProducts} from "@/components/commerce/featured-products";
 import {SITE_NAME, SITE_URL, buildCanonicalUrl} from "@/lib/metadata";
 import {BadgeCheck, Tag, Zap} from "lucide-react";
 import {getTranslations} from 'next-intl/server';
+import {toOgLocale} from '@/i18n/locale-utils';
 
-export const metadata: Metadata = {
-    title: {
-        absolute: `${SITE_NAME} - Your One-Stop Shop`,
-    },
-    description:
-        "Discover high-quality products at competitive prices. Shop now for the best deals on electronics, fashion, home goods, and more.",
-    alternates: {
-        canonical: buildCanonicalUrl("/"),
-    },
-    openGraph: {
-        title: `${SITE_NAME} - Your One-Stop Shop`,
-        description:
-            "Discover high-quality products at competitive prices. Shop now for the best deals.",
-        type: "website",
-        url: SITE_URL,
-    },
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Home'});
+    const ogLocale = toOgLocale(locale);
+
+    return {
+        title: {
+            absolute: `${SITE_NAME} - ${t('pageTitle')}`,
+        },
+        description: t('description'),
+        alternates: {
+            canonical: buildCanonicalUrl("/"),
+        },
+        openGraph: {
+            title: `${SITE_NAME} - ${t('pageTitle')}`,
+            description: t('ogDescription'),
+            type: "website",
+            locale: ogLocale,
+            url: SITE_URL,
+        },
+    };
+}
 
 const featureKeys = [
     {icon: BadgeCheck, key: 'highQuality'},
