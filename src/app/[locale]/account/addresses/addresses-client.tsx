@@ -123,7 +123,8 @@ export function AddressesClient({ addresses, countries }: AddressesClientProps) 
         }
     };
 
-    const handleSubmit = async (data: Record<string, unknown>) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleSubmit = async (data: any) => {
         setIsSubmitting(true);
         try {
             if (editingAddress) {

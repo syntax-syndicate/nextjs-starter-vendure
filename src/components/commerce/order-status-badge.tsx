@@ -32,8 +32,7 @@ export function OrderStatusBadge({state}: OrderStatusBadgeProps) {
     const t = useTranslations('OrderStatus');
     const config = STATUS_CONFIG[state] || {color: 'bg-gray-100 text-gray-800', icon: Clock};
     const Icon = config.icon;
-    const statusKeys = Object.keys(STATUS_CONFIG);
-    const label = statusKeys.includes(state) ? t(state as keyof IntlMessages['OrderStatus']) : state;
+    const label = state in STATUS_CONFIG ? t(state as 'AddingItems' | 'ArrangingPayment' | 'PaymentAuthorized' | 'PaymentSettled' | 'PartiallyShipped' | 'Shipped' | 'PartiallyDelivered' | 'Delivered' | 'Cancelled') : state;
 
     return (
         <Badge className={config.color} variant="secondary">

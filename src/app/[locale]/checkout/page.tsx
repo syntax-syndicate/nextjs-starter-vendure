@@ -39,11 +39,11 @@ export default async function CheckoutPage(_props: PageProps<'/[locale]/checkout
     const activeOrder = orderRes.data.activeOrder;
 
     if (!activeOrder || activeOrder.lines.length === 0) {
-        return redirect({href: '/cart'});
+        return redirect({href: '/cart', locale});
     }
 
     if (activeOrder.state !== 'AddingItems' && activeOrder.state !== 'ArrangingPayment') {
-        return redirect({href: `/order-confirmation/${activeOrder.code}`});
+        return redirect({href: `/order-confirmation/${activeOrder.code}`, locale});
     }
 
     const addresses = addressesRes.data.activeCustomer?.addresses || [];

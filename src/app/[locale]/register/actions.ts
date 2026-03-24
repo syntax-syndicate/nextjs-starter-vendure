@@ -3,6 +3,7 @@
 import {mutate} from '@/lib/vendure/api';
 import {RegisterCustomerAccountMutation} from '@/lib/vendure/mutations';
 import {redirect} from '@/i18n/navigation';
+import {getLocale} from 'next-intl/server';
 
 export async function registerAction(prevState: { error?: string } | undefined, formData: FormData) {
     const emailAddress = formData.get('emailAddress') as string;
@@ -38,6 +39,7 @@ export async function registerAction(prevState: { error?: string } | undefined, 
         ? `/verify-pending?redirectTo=${encodeURIComponent(redirectTo)}`
         : '/verify-pending';
 
-    redirect({href: verifyUrl});
+    const locale = await getLocale();
+    redirect({href: verifyUrl, locale});
 
 }

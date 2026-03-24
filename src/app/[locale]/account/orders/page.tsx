@@ -28,6 +28,7 @@ const ITEMS_PER_PAGE = 10;
 
 export default async function OrdersPage(props: PageProps<'/[locale]/account/orders'>) {
     const searchParams = await props.searchParams;
+    const locale = (await rootLocale()) as string;
     const pageParam = searchParams.page;
     const currentPage = parseInt(Array.isArray(pageParam) ? pageParam[0] : pageParam || '1', 10);
     const skip = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -49,10 +50,8 @@ export default async function OrdersPage(props: PageProps<'/[locale]/account/ord
     );
 
     if (!data.activeCustomer) {
-        return redirect({href: '/sign-in'});
+        return redirect({href: '/sign-in', locale});
     }
-
-    const locale = (await rootLocale()) as string;
     const t = await getTranslations({locale, namespace: 'Account'});
 
     const orders = data.activeCustomer.orders.items;

@@ -4,6 +4,7 @@ import {mutate} from '@/lib/vendure/api';
 import {ResetPasswordMutation} from '@/lib/vendure/mutations';
 import {setAuthToken} from '@/lib/auth';
 import {redirect} from '@/i18n/navigation';
+import {getLocale} from 'next-intl/server';
 
 export async function resetPasswordAction(prevState: { error?: string } | undefined, formData: FormData) {
     const token = formData.get('token') as string;
@@ -35,5 +36,6 @@ export async function resetPasswordAction(prevState: { error?: string } | undefi
         await setAuthToken(result.token);
     }
 
-    redirect({href: '/'});
+    const locale = await getLocale();
+    redirect({href: '/', locale});
 }

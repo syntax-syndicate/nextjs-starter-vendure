@@ -28,6 +28,7 @@ export async function generateMetadata({params}: OrderDetailPageProps): Promise<
 export default async function OrderDetailPage(props: PageProps<'/[locale]/account/orders/[code]'>) {
     const params = await props.params;
     const {code} = params;
+    const locale = (await rootLocale()) as string;
     const activeCustomer = await getActiveCustomer();
 
     const {data} = await query(
@@ -37,7 +38,7 @@ export default async function OrderDetailPage(props: PageProps<'/[locale]/accoun
     );
 
     if (!data.orderByCode) {
-        return redirect({href: '/account/orders'});
+        return redirect({href: '/account/orders', locale});
     }
 
     if (data.orderByCode.customer?.id !== activeCustomer?.id) {
@@ -45,8 +46,6 @@ export default async function OrderDetailPage(props: PageProps<'/[locale]/accoun
     }
 
     const order = data.orderByCode;
-
-    const locale = (await rootLocale()) as string;
     const t = await getTranslations({locale, namespace: 'Account'});
 
     return (

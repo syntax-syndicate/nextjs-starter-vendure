@@ -39,7 +39,7 @@ export async function loginAction(prevState: { error?: string } | undefined, for
         ? redirectTo
         : '/';
 
-    redirect({href: safeRedirect});
+    redirect({href: safeRedirect, locale});
 
 }
 
@@ -47,5 +47,6 @@ export async function logoutAction() {
     await mutate(LogoutMutation);
     await removeAuthToken();
 
-    redirect({href: '/'})
+    const locale = await getLocale();
+    redirect({href: '/', locale})
 }
