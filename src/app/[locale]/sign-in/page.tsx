@@ -1,14 +1,19 @@
 import type {Metadata} from 'next';
 import {Suspense} from 'react';
+import {locale as rootLocale} from 'next/root-params';
+import {getTranslations} from 'next-intl/server';
 import {LoginForm} from "./login-form";
 import {Card, CardContent, CardFooter} from "@/components/ui/card";
 import {Skeleton} from "@/components/ui/skeleton";
 import {SITE_NAME} from "@/lib/metadata";
 
-export const metadata: Metadata = {
-    title: 'Sign In',
-    description: 'Sign in to your account to access your orders, wishlist, and more.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Auth'});
+    return {
+        title: t('pageTitle'),
+    };
+}
 
 function LoginFormSkeleton() {
     return (
@@ -42,6 +47,9 @@ async function SignInContent({searchParams}: { searchParams: Promise<Record<stri
 }
 
 export default async function SignInPage({searchParams}: PageProps<'/[locale]/sign-in'>) {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Auth'});
+
     return (
         <div className="flex min-h-[calc(100vh-4rem)] mt-16">
             {/* Branded panel - desktop only */}
@@ -49,20 +57,20 @@ export default async function SignInPage({searchParams}: PageProps<'/[locale]/si
                 <div className="max-w-md text-primary-foreground space-y-6">
                     <h2 className="text-4xl font-bold tracking-tight">{SITE_NAME}</h2>
                     <p className="text-xl text-primary-foreground/80 leading-relaxed">
-                        Welcome back. Sign in to access your orders, manage your account, and keep shopping.
+                        {t('welcomeBack')}
                     </p>
                     <div className="flex gap-8 pt-4">
                         <div>
-                            <p className="text-3xl font-bold">Fast</p>
-                            <p className="text-sm text-primary-foreground/70">Checkout</p>
+                            <p className="text-3xl font-bold">{t('featureFast')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featureCheckout')}</p>
                         </div>
                         <div>
-                            <p className="text-3xl font-bold">Secure</p>
-                            <p className="text-sm text-primary-foreground/70">Payments</p>
+                            <p className="text-3xl font-bold">{t('featureSecure')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featurePayments')}</p>
                         </div>
                         <div>
-                            <p className="text-3xl font-bold">Easy</p>
-                            <p className="text-sm text-primary-foreground/70">Returns</p>
+                            <p className="text-3xl font-bold">{t('featureEasy')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featureReturns')}</p>
                         </div>
                     </div>
                 </div>
@@ -73,9 +81,9 @@ export default async function SignInPage({searchParams}: PageProps<'/[locale]/si
                 <div className="w-full max-w-md space-y-6">
                     <div className="space-y-2 text-center">
                         <p className="text-sm font-medium text-primary tracking-wider uppercase lg:hidden">{SITE_NAME}</p>
-                        <h1 className="text-3xl font-bold">Sign In</h1>
+                        <h1 className="text-3xl font-bold">{t('signIn')}</h1>
                         <p className="text-muted-foreground">
-                            Enter your credentials to access your account
+                            {t('enterCredentials')}
                         </p>
                     </div>
                     <Suspense fallback={<LoginFormSkeleton/>}>

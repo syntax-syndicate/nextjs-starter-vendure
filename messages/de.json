@@ -23,6 +23,9 @@
     "viewCollections": "Kategorien ansehen"
   },
   "Home": {
+    "pageTitle": "Ihr One-Stop-Shop",
+    "description": "Entdecken Sie hochwertige Produkte zu wettbewerbsfähigen Preisen. Jetzt einkaufen und die besten Angebote für Elektronik, Mode, Haushaltswaren und mehr finden.",
+    "ogDescription": "Entdecken Sie hochwertige Produkte zu wettbewerbsfähigen Preisen. Jetzt die besten Angebote sichern.",
     "whyShopWithUs": "Warum bei uns einkaufen",
     "features": {
       "highQuality": {
@@ -58,6 +61,8 @@
     "viewAllProducts": "Alle Produkte anzeigen",
     "notFound": "Produkt nicht gefunden",
     "home": "Startseite",
+    "noProductsFound": "Keine Produkte gefunden",
+    "productCount": "{count, plural, one {# Produkt} other {# Produkte}}",
     "trustBadges": {
       "fastShipping": "Schneller Versand",
       "freeReturns": "Kostenlose Rücksendung",
@@ -117,6 +122,7 @@
     "sku": "Art.-Nr.: {sku}"
   },
   "Checkout": {
+    "pageTitle": "Kasse",
     "steps": {
       "contact": "Kontakt",
       "address": "Adresse",
@@ -210,6 +216,7 @@
     "Cancelled": "Storniert"
   },
   "Auth": {
+    "pageTitle": "Anmelden",
     "signIn": "Anmelden",
     "signingIn": "Wird angemeldet...",
     "email": "E-Mail",
@@ -231,8 +238,19 @@
     "passwordsMismatch": "Passwörter stimmen nicht überein",
     "alreadyHaveAccount": "Haben Sie bereits ein Konto?",
     "signInLink": "Anmelden",
+    "welcomeBack": "Willkommen zurück. Melden Sie sich an, um auf Ihre Bestellungen zuzugreifen, Ihr Konto zu verwalten und weiter einzukaufen.",
+    "enterCredentials": "Geben Sie Ihre Zugangsdaten ein, um auf Ihr Konto zuzugreifen",
+    "joinUs": "Werden Sie noch heute Mitglied. Erstellen Sie Ihr Konto für schnelleren Checkout, Bestellverfolgung und exklusive Angebote.",
+    "signUpMessage": "Registrieren Sie sich, um bei uns einzukaufen",
+    "featureFast": "Schnell",
+    "featureCheckout": "Checkout",
+    "featureSecure": "Sicher",
+    "featurePayments": "Zahlungen",
+    "featureEasy": "Einfach",
+    "featureReturns": "Retouren",
     "forgotPasswordTitle": "Passwort vergessen?",
     "forgotPasswordDescription": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+    "forgotPasswordPageTitle": "Passwort vergessen",
     "sendResetLink": "Link zum Zurücksetzen senden",
     "sending": "Wird gesendet...",
     "backToSignIn": "Zurück zur Anmeldung",
@@ -247,6 +265,12 @@
     "confirmPassword": "Passwort bestätigen",
     "resetPassword": "Passwort zurücksetzen",
     "resettingPassword": "Wird zurückgesetzt..."
+  },
+  "Search": {
+    "title": "Suche",
+    "pageTitle": "Produkte suchen",
+    "resultsFor": "Suchergebnisse für \"{query}\"",
+    "resultsTitle": "Suchergebnisse für \"{query}\""
   },
   "Verify": {
     "invalidLink": "Ungültiger Bestätigungslink",
@@ -266,6 +290,7 @@
     "loading": "Wird geladen..."
   },
   "OrderConfirmation": {
+    "pageTitle": "Bestellbestätigung",
     "orderConfirmed": "Bestellung bestätigt!",
     "thankYou": "Vielen Dank für Ihre Bestellung. Ihre Bestellnummer lautet",
     "emailConfirmation": "Wir senden Ihnen eine E-Mail mit Ihren Bestelldetails und Tracking-Informationen.",
@@ -277,6 +302,10 @@
     "viewOrders": "Bestellungen ansehen"
   },
   "Account": {
+    "pageTitle": "Konto",
+    "ordersPageTitle": "Meine Bestellungen",
+    "addressesPageTitle": "Adressen",
+    "profilePageTitle": "Profil",
     "profile": "Profil",
     "manageAccountInfo": "Verwalten Sie Ihre Kontoinformationen",
     "personalInformation": "Persönliche Informationen",

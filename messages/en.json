@@ -23,6 +23,9 @@
     "viewCollections": "View Collections"
   },
   "Home": {
+    "pageTitle": "Your One-Stop Shop",
+    "description": "Discover high-quality products at competitive prices. Shop now for the best deals on electronics, fashion, home goods, and more.",
+    "ogDescription": "Discover high-quality products at competitive prices. Shop now for the best deals.",
     "whyShopWithUs": "Why Shop With Us",
     "features": {
       "highQuality": {
@@ -58,6 +61,8 @@
     "viewAllProducts": "View All Products",
     "notFound": "Product Not Found",
     "home": "Home",
+    "noProductsFound": "No products found",
+    "productCount": "{count, plural, one {# product} other {# products}}",
     "trustBadges": {
       "fastShipping": "Fast Shipping",
       "freeReturns": "Free Returns",
@@ -117,6 +122,7 @@
     "sku": "SKU: {sku}"
   },
   "Checkout": {
+    "pageTitle": "Checkout",
     "steps": {
       "contact": "Contact",
       "address": "Address",
@@ -210,6 +216,7 @@
     "Cancelled": "Cancelled"
   },
   "Auth": {
+    "pageTitle": "Sign In",
     "signIn": "Sign In",
     "signingIn": "Signing in...",
     "email": "Email",
@@ -231,8 +238,19 @@
     "passwordsMismatch": "Passwords don't match",
     "alreadyHaveAccount": "Already have an account?",
     "signInLink": "Sign in",
+    "welcomeBack": "Welcome back. Sign in to access your orders, manage your account, and keep shopping.",
+    "enterCredentials": "Enter your credentials to access your account",
+    "joinUs": "Join us today. Create your account to enjoy faster checkout, order tracking, and exclusive offers.",
+    "signUpMessage": "Sign up to start shopping with us",
+    "featureFast": "Fast",
+    "featureCheckout": "Checkout",
+    "featureSecure": "Secure",
+    "featurePayments": "Payments",
+    "featureEasy": "Easy",
+    "featureReturns": "Returns",
     "forgotPasswordTitle": "Forgot password?",
     "forgotPasswordDescription": "Enter your email address and we'll send you a link to reset your password.",
+    "forgotPasswordPageTitle": "Forgot Password",
     "sendResetLink": "Send reset link",
     "sending": "Sending...",
     "backToSignIn": "Back to Sign In",
@@ -247,6 +265,12 @@
     "confirmPassword": "Confirm Password",
     "resetPassword": "Reset password",
     "resettingPassword": "Resetting password..."
+  },
+  "Search": {
+    "title": "Search",
+    "pageTitle": "Search Products",
+    "resultsFor": "Search results for \"{query}\"",
+    "resultsTitle": "Search results for \"{query}\""
   },
   "Verify": {
     "invalidLink": "Invalid Verification Link",
@@ -266,6 +290,7 @@
     "loading": "Loading..."
   },
   "OrderConfirmation": {
+    "pageTitle": "Order Confirmation",
     "orderConfirmed": "Order Confirmed!",
     "thankYou": "Thank you for your order. Your order number is",
     "emailConfirmation": "We'll send you an email with your order details and tracking information.",
@@ -277,6 +302,10 @@
     "viewOrders": "View Orders"
   },
   "Account": {
+    "pageTitle": "Account",
+    "ordersPageTitle": "My Orders",
+    "addressesPageTitle": "Addresses",
+    "profilePageTitle": "Profile",
     "profile": "Profile",
     "manageAccountInfo": "Manage your account information",
     "personalInformation": "Personal Information",

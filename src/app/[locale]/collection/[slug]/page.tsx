@@ -106,6 +106,8 @@ export async function generateMetadata({
 export default async function CollectionPage({params, searchParams}: PageProps<'/[locale]/collection/[slug]'>) {
     const { slug } = await params;
     const searchParamsResolved = await searchParams;
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Product'});
     const page = getCurrentPage(searchParamsResolved);
 
     const productDataPromise = getCollectionProducts(slug, searchParamsResolved);
@@ -118,7 +120,7 @@ export default async function CollectionPage({params, searchParams}: PageProps<'
             <Breadcrumb className="mb-6">
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink render={<Link href="/" />}>Home</BreadcrumbLink>
+                        <BreadcrumbLink render={<Link href="/" />}>{t('home')}</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator />
                     <BreadcrumbItem>

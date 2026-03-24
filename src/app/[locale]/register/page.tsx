@@ -1,14 +1,19 @@
 import type {Metadata} from 'next';
 import {Suspense} from 'react';
+import {locale as rootLocale} from 'next/root-params';
+import {getTranslations} from 'next-intl/server';
 import { RegistrationForm } from "./registration-form";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {SITE_NAME} from "@/lib/metadata";
 
-export const metadata: Metadata = {
-    title: 'Create Account',
-    description: 'Create a new account to start shopping with us.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Auth'});
+    return {
+        title: t('createAccount'),
+    };
+}
 
 function RegistrationFormSkeleton() {
     return (
@@ -57,6 +62,9 @@ async function RegisterContent({searchParams}: {searchParams: Promise<Record<str
 }
 
 export default async function RegisterPage({searchParams}: PageProps<'/[locale]/register'>) {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Auth'});
+
     return (
         <div className="flex min-h-[calc(100vh-4rem)] mt-16">
             {/* Branded panel - desktop only */}
@@ -64,20 +72,20 @@ export default async function RegisterPage({searchParams}: PageProps<'/[locale]/
                 <div className="max-w-md text-primary-foreground space-y-6">
                     <h2 className="text-4xl font-bold tracking-tight">{SITE_NAME}</h2>
                     <p className="text-xl text-primary-foreground/80 leading-relaxed">
-                        Join us today. Create your account to enjoy faster checkout, order tracking, and exclusive offers.
+                        {t('joinUs')}
                     </p>
                     <div className="flex gap-8 pt-4">
                         <div>
-                            <p className="text-3xl font-bold">Fast</p>
-                            <p className="text-sm text-primary-foreground/70">Checkout</p>
+                            <p className="text-3xl font-bold">{t('featureFast')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featureCheckout')}</p>
                         </div>
                         <div>
-                            <p className="text-3xl font-bold">Secure</p>
-                            <p className="text-sm text-primary-foreground/70">Payments</p>
+                            <p className="text-3xl font-bold">{t('featureSecure')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featurePayments')}</p>
                         </div>
                         <div>
-                            <p className="text-3xl font-bold">Easy</p>
-                            <p className="text-sm text-primary-foreground/70">Returns</p>
+                            <p className="text-3xl font-bold">{t('featureEasy')}</p>
+                            <p className="text-sm text-primary-foreground/70">{t('featureReturns')}</p>
                         </div>
                     </div>
                 </div>
@@ -88,9 +96,9 @@ export default async function RegisterPage({searchParams}: PageProps<'/[locale]/
                 <div className="w-full max-w-md space-y-6">
                     <div className="space-y-2 text-center">
                         <p className="text-sm font-medium text-primary tracking-wider uppercase lg:hidden">{SITE_NAME}</p>
-                        <h1 className="text-3xl font-bold">Create Account</h1>
+                        <h1 className="text-3xl font-bold">{t('createAccount')}</h1>
                         <p className="text-muted-foreground">
-                            Sign up to start shopping with us
+                            {t('signUpMessage')}
                         </p>
                     </div>
                     <Suspense fallback={<RegistrationFormSkeleton />}>

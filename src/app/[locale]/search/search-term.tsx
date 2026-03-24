@@ -1,3 +1,6 @@
+import {locale as rootLocale} from 'next/root-params';
+import {getTranslations} from 'next-intl/server';
+
 interface SearchTermProps {
     searchParams: Promise<{
         q?: string
@@ -7,11 +10,13 @@ interface SearchTermProps {
 export async function SearchTerm({searchParams}: SearchTermProps) {
     const searchParamsResolved = await searchParams;
     const searchTerm = (searchParamsResolved.q as string) || '';
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Search'});
 
     return (
         <div className="mb-6">
             <h1 className="text-3xl font-bold">
-                {searchTerm ? `Search results for "${searchTerm}"` : 'Search'}
+                {searchTerm ? t('resultsFor', {query: searchTerm}) : t('title')}
             </h1>
         </div>
     )

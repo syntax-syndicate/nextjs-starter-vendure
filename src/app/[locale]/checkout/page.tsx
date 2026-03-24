@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {locale as rootLocale} from 'next/root-params';
+import {getTranslations} from 'next-intl/server';
 import {query} from '@/lib/vendure/api';
 import {
     GetActiveOrderForCheckoutQuery,
@@ -14,14 +15,18 @@ import {noIndexRobots} from '@/lib/metadata';
 import {getActiveCustomer} from '@/lib/vendure/actions';
 import {getAvailableCountriesCached} from '@/lib/vendure/cached';
 
-export const metadata: Metadata = {
-    title: 'Checkout',
-    description: 'Complete your purchase.',
-    robots: noIndexRobots(),
-};
+export async function generateMetadata(): Promise<Metadata> {
+    const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Checkout'});
+    return {
+        title: t('pageTitle'),
+        robots: noIndexRobots(),
+    };
+}
 
 export default async function CheckoutPage(_props: PageProps<'/[locale]/checkout'>) {
     const locale = (await rootLocale()) as string;
+    const t = await getTranslations({locale, namespace: 'Checkout'});
     const customer = await getActiveCustomer();
     const isGuest = !customer;
 
@@ -53,7 +58,7 @@ export default async function CheckoutPage(_props: PageProps<'/[locale]/checkout
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-8">Checkout</h1>
+            <h1 className="text-3xl font-bold mb-8">{t('pageTitle')}</h1>
             <CheckoutProvider
                 order={activeOrder}
                 addresses={addresses}
