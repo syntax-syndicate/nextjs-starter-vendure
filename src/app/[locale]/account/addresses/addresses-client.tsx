@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
@@ -123,7 +123,7 @@ export function AddressesClient({ addresses, countries }: AddressesClientProps) 
         }
     };
 
-    const handleSubmit = async (data: any) => {
+    const handleSubmit = async (data: Record<string, unknown>) => {
         setIsSubmitting(true);
         try {
             if (editingAddress) {

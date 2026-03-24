@@ -37,7 +37,7 @@ export default async function OrderDetailPage(props: PageProps<'/[locale]/accoun
     );
 
     if (!data.orderByCode) {
-        return redirect('/account/orders');
+        return redirect({href: '/account/orders'});
     }
 
     if (data.orderByCode.customer?.id !== activeCustomer?.id) {

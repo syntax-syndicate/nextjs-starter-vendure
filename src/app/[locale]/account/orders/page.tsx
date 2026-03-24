@@ -49,7 +49,7 @@ export default async function OrdersPage(props: PageProps<'/[locale]/account/ord
     );
 
     if (!data.activeCustomer) {
-        return redirect('/sign-in');
+        return redirect({href: '/sign-in'});
     }
 
     const locale = (await rootLocale()) as string;

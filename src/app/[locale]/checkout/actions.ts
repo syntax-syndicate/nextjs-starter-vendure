@@ -140,7 +140,7 @@ export async function placeOrder(paymentMethodCode: string) {
     updateTag('cart');
     updateTag('active-order');
 
-    redirect(`/order-confirmation/${orderCode}`);
+    redirect({href: `/order-confirmation/${orderCode}`});
 }
 
 interface GuestCustomerInput {

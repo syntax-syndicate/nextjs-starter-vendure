@@ -39,7 +39,7 @@ export async function loginAction(prevState: { error?: string } | undefined, for
         ? redirectTo
         : '/';
 
-    redirect(safeRedirect);
+    redirect({href: safeRedirect});
 
 }
 
@@ -47,5 +47,5 @@ export async function logoutAction() {
     await mutate(LogoutMutation);
     await removeAuthToken();
 
-    redirect('/')
+    redirect({href: '/'})
 }

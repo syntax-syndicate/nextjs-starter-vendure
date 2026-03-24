@@ -38,6 +38,6 @@ export async function registerAction(prevState: { error?: string } | undefined, 
         ? `/verify-pending?redirectTo=${encodeURIComponent(redirectTo)}`
         : '/verify-pending';
 
-    redirect(verifyUrl);
+    redirect({href: verifyUrl});
 
 }

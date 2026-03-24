@@ -35,5 +35,5 @@ export async function resetPasswordAction(prevState: { error?: string } | undefi
         await setAuthToken(result.token);
     }
 
-    redirect('/');
+    redirect({href: '/'});
 }

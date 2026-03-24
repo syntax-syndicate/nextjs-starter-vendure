@@ -32,7 +32,8 @@ export function OrderStatusBadge({state}: OrderStatusBadgeProps) {
     const t = useTranslations('OrderStatus');
     const config = STATUS_CONFIG[state] || {color: 'bg-gray-100 text-gray-800', icon: Clock};
     const Icon = config.icon;
-    const label = STATUS_CONFIG[state] ? t(state as any) : state;
+    const statusKeys = Object.keys(STATUS_CONFIG);
+    const label = statusKeys.includes(state) ? t(state as keyof IntlMessages['OrderStatus']) : state;
 
     return (
         <Badge className={config.color} variant="secondary">
