@@ -7,7 +7,7 @@ import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 import {Separator} from '@/components/ui/separator';
 import {ShoppingCart, CheckCircle2} from 'lucide-react';
-import {addToCart} from '@/app/product/[slug]/actions';
+import {addToCart} from '@/app/[locale]/product/[slug]/actions';
 import {toast} from 'sonner';
 import {Price} from '@/components/commerce/price';
 

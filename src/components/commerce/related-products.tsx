@@ -1,4 +1,5 @@
 import { ProductCarousel } from "@/components/commerce/product-carousel";
+import { locale as rootLocale } from "next/root-params";
 import { cacheLife, cacheTag } from "next/cache";
 import { query } from "@/lib/vendure/api";
 import { GetCollectionProductsQuery } from "@/lib/vendure/queries";
@@ -13,7 +14,9 @@ interface RelatedProductsProps {
 async function getRelatedProducts(collectionSlug: string, currentProductId: string) {
     'use cache'
     cacheLife('hours')
-    cacheTag(`related-products-${collectionSlug}`)
+
+    const locale = (await rootLocale()) as string;
+    cacheTag(`related-products-${collectionSlug}-${locale}`)
 
     const result = await query(GetCollectionProductsQuery, {
         slug: collectionSlug,
@@ -23,7 +26,7 @@ async function getRelatedProducts(collectionSlug: string, currentProductId: stri
             skip: 0,
             groupByProduct: true
         }
-    });
+    }, {languageCode: locale});
 
     // Filter out the current product and limit to 12
     return result.data.search.items

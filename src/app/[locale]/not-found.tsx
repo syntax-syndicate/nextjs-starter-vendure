@@ -1,12 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { SearchX, Home, ShoppingBag } from 'lucide-react';
 import Link from "next/link";
+import { getLocale } from 'next-intl/server';
 import { getTopCollections } from '@/lib/vendure/cached';
 
 export default async function NotFound() {
+    const locale = await getLocale();
     let collections: { id: string; name: string; slug: string }[] = [];
     try {
-        collections = await getTopCollections();
+        collections = await getTopCollections(locale);
     } catch {
         // Gracefully handle if collections can't be fetched
     }

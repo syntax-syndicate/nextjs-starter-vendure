@@ -1,22 +1,28 @@
 import {revalidateTag} from 'next/cache';
 import {NextRequest, NextResponse} from 'next/server';
+import {routing} from '@/i18n/routing';
 
-// Supported cache tags that can be revalidated
-const VALID_TAGS = [
+// Supported base cache tags that can be revalidated.
+// These are the tag names WITHOUT locale suffixes.
+const VALID_BASE_TAGS = [
     'collections',
     'countries',
-    'featured-products',
+    'featured',
 ] as const;
 
 // Dynamic tags follow patterns like 'product-{slug}', 'collection-{slug}', 'related-products-{slug}'
 const DYNAMIC_TAG_PATTERNS = [
     /^product-.+$/,
     /^collection-.+$/,
+    /^collection-meta-.+$/,
     /^related-products-.+$/,
+    /^navbar-collections$/,
+    /^mobile-nav$/,
+    /^footer$/,
 ];
 
-function isValidTag(tag: string): boolean {
-    if ((VALID_TAGS as readonly string[]).includes(tag)) return true;
+function isValidBaseTag(tag: string): boolean {
+    if ((VALID_BASE_TAGS as readonly string[]).includes(tag)) return true;
     return DYNAMIC_TAG_PATTERNS.some(pattern => pattern.test(tag));
 }
 
@@ -51,7 +57,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Validate and revalidate each tag
+        // Validate and revalidate each tag for all locales
         const results: {tag: string; success: boolean; error?: string}[] = [];
 
         for (const tag of tags) {
@@ -60,16 +66,20 @@ export async function POST(request: NextRequest) {
                 continue;
             }
 
-            if (!isValidTag(tag)) {
+            if (!isValidBaseTag(tag)) {
                 results.push({tag, success: false, error: 'Unknown tag'});
                 continue;
             }
 
-            try {
-                revalidateTag(tag, {expire: 0});
-                results.push({tag, success: true});
-            } catch {
-                results.push({tag, success: false, error: 'Revalidation failed'});
+            // Revalidate for every locale
+            for (const locale of routing.locales) {
+                const localizedTag = `${tag}-${locale}`;
+                try {
+                    revalidateTag(localizedTag, {expire: 0});
+                    results.push({tag: localizedTag, success: true});
+                } catch {
+                    results.push({tag: localizedTag, success: false, error: 'Revalidation failed'});
+                }
             }
         }
 

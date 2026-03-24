@@ -20,6 +20,7 @@ import {
     BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { notFound } from 'next/navigation';
+import { locale as rootLocale } from 'next/root-params';
 import { cacheLife, cacheTag } from 'next/cache';
 import { Truck, RotateCcw, ShieldCheck, Clock } from 'lucide-react';
 import {
@@ -32,9 +33,11 @@ import {
 async function getProductData(slug: string) {
     'use cache';
     cacheLife('hours');
-    cacheTag(`product-${slug}`);
 
-    return await query(GetProductDetailQuery, { slug });
+    const locale = (await rootLocale()) as string;
+    cacheTag(`product-${slug}-${locale}`);
+
+    return await query(GetProductDetailQuery, {slug}, {languageCode: locale});
 }
 
 export async function generateMetadata({

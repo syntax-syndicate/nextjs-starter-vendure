@@ -15,6 +15,7 @@ interface VendureRequestOptions {
     token?: string;
     useAuthToken?: boolean;
     channelToken?: string;
+    languageCode?: string;
     fetch?: RequestInit;
     tags?: string[];
 }
@@ -45,6 +46,7 @@ export async function query<TResult, TVariables>(
         token,
         useAuthToken,
         channelToken,
+        languageCode,
         fetch: fetchOptions,
         tags,
     } = options || {};
@@ -67,7 +69,12 @@ export async function query<TResult, TVariables>(
     // Set the channel token header (use provided channelToken or default)
     headers[VENDURE_CHANNEL_TOKEN_HEADER] = channelToken || VENDURE_CHANNEL_TOKEN;
 
-    const response = await fetch(VENDURE_API_URL!, {
+    const url = new URL(VENDURE_API_URL!);
+    if (languageCode) {
+        url.searchParams.set('languageCode', languageCode);
+    }
+
+    const response = await fetch(url.toString(), {
         ...fetchOptions,
         method: 'POST',
         headers,

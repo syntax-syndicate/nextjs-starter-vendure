@@ -7,6 +7,7 @@ import { ProductGrid } from '@/components/commerce/product-grid';
 import { FacetFilters } from '@/components/commerce/facet-filters';
 import { ProductGridSkeleton } from '@/components/shared/product-grid-skeleton';
 import { buildSearchInput, getCurrentPage } from '@/lib/search-helpers';
+import { locale as rootLocale } from 'next/root-params';
 import { cacheLife, cacheTag } from 'next/cache';
 import {
     Breadcrumb,
@@ -26,25 +27,29 @@ import {
 async function getCollectionProducts(slug: string, searchParams: { [key: string]: string | string[] | undefined }) {
     'use cache';
     cacheLife('hours');
-    cacheTag(`collection-${slug}`);
+
+    const locale = (await rootLocale()) as string;
+    cacheTag(`collection-${slug}-${locale}`);
 
     return query(SearchProductsQuery, {
         input: buildSearchInput({
             searchParams,
             collectionSlug: slug
         })
-    });
+    }, {languageCode: locale});
 }
 
 async function getCollectionMetadata(slug: string) {
     'use cache';
     cacheLife('hours');
-    cacheTag(`collection-meta-${slug}`);
+
+    const locale = (await rootLocale()) as string;
+    cacheTag(`collection-meta-${slug}-${locale}`);
 
     return query(GetCollectionProductsQuery, {
         slug,
         input: { take: 0, collectionSlug: slug, groupByProduct: true },
-    });
+    }, {languageCode: locale});
 }
 
 export async function generateMetadata({

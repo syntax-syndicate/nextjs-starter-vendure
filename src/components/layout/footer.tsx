@@ -1,4 +1,5 @@
-import {cacheLife} from 'next/cache';
+import {locale as rootLocale} from 'next/root-params';
+import {cacheLife, cacheTag} from 'next/cache';
 import {getTopCollections} from '@/lib/vendure/cached';
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +20,10 @@ export async function Footer() {
     'use cache'
     cacheLife('days');
 
-    const collections = await getTopCollections();
+    const locale = (await rootLocale()) as string;
+    cacheTag(`footer-${locale}`);
+
+    const collections = await getTopCollections(locale);
 
     return (
         <footer className="border-t border-border mt-auto">

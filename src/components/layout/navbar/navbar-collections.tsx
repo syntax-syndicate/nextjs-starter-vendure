@@ -1,4 +1,5 @@
-import {cacheLife} from 'next/cache';
+import {locale as rootLocale} from 'next/root-params';
+import {cacheLife, cacheTag} from 'next/cache';
 import {getTopCollections} from '@/lib/vendure/cached';
 import {
     NavigationMenu,
@@ -11,7 +12,10 @@ export async function NavbarCollections() {
     "use cache";
     cacheLife('days');
 
-    const collections = await getTopCollections();
+    const locale = (await rootLocale()) as string;
+    cacheTag(`navbar-collections-${locale}`);
+
+    const collections = await getTopCollections(locale);
 
     return (
         <NavigationMenu>

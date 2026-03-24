@@ -7,6 +7,7 @@ import {
     GetEligibleShippingMethodsQuery,
 } from '@/lib/vendure/queries';
 import {redirect} from 'next/navigation';
+import {getLocale} from 'next-intl/server';
 import CheckoutFlow from './checkout-flow';
 import {CheckoutProvider} from './checkout-provider';
 import {noIndexRobots} from '@/lib/metadata';
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function CheckoutPage(_props: PageProps<'/[locale]/checkout'>) {
+    const locale = await getLocale();
     const customer = await getActiveCustomer();
     const isGuest = !customer;
 
@@ -29,7 +31,7 @@ export default async function CheckoutPage(_props: PageProps<'/[locale]/checkout
             isGuest
                 ? Promise.resolve({ data: { activeCustomer: null } })
                 : query(GetCustomerAddressesQuery, {}, {useAuthToken: true}),
-            getAvailableCountriesCached(),
+            getAvailableCountriesCached(locale),
             query(GetEligibleShippingMethodsQuery, {}, {useAuthToken: true}),
             query(GetEligiblePaymentMethodsQuery, {}, {useAuthToken: true}),
         ]);

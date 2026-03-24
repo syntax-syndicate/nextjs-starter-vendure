@@ -1,5 +1,6 @@
 import {ProductCarousel} from "@/components/commerce/product-carousel";
-import {cacheLife} from "next/cache";
+import {locale as rootLocale} from "next/root-params";
+import {cacheLife, cacheTag} from "next/cache";
 import {query} from "@/lib/vendure/api";
 import {GetCollectionProductsQuery} from "@/lib/vendure/queries";
 import Link from "next/link";
@@ -8,6 +9,9 @@ import {ArrowRight} from "lucide-react";
 async function getFeaturedCollectionProducts() {
     'use cache'
     cacheLife('days')
+
+    const locale = (await rootLocale()) as string;
+    cacheTag(`featured-${locale}`);
 
     // Fetch featured products from a specific collection
     // Replace 'featured' with your actual collection slug
@@ -19,7 +23,7 @@ async function getFeaturedCollectionProducts() {
             skip: 0,
             groupByProduct: true
         }
-    });
+    }, {languageCode: locale});
 
     return result.data.search.items;
 }
