@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link } from '@/i18n/navigation';
+import NextLink from 'next/link';
 import {NavbarCollections} from '@/components/layout/navbar/navbar-collections';
 import {NavbarCart} from '@/components/layout/navbar/navbar-cart';
 import {NavbarUser} from '@/components/layout/navbar/navbar-user';
@@ -11,7 +11,7 @@ import {SearchInput} from '@/components/layout/search-input';
 import {NavbarUserSkeleton} from '@/components/shared/skeletons/navbar-user-skeleton';
 import {SearchInputSkeleton} from '@/components/shared/skeletons/search-input-skeleton';
 
-export function Navbar() {
+export function Navbar({locale}: {locale: string}) {
     return (
         <header className="fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-md bg-background/80">
             <div className="container mx-auto px-4">
@@ -20,9 +20,9 @@ export function Navbar() {
                         <Suspense>
                             <MobileNavWrapper />
                         </Suspense>
-                        <Link href="/" className="text-xl font-bold">
+                        <NextLink href={`/${locale}`} className="text-xl font-bold">
                             <Image src="/vendure.svg" alt="Vendure" width={40} height={27} className="h-6 w-auto dark:invert" />
-                        </Link>
+                        </NextLink>
                         <nav className="hidden md:flex items-center gap-6">
                             <Suspense>
                                 <NavbarCollections/>

@@ -2,7 +2,7 @@ import {locale as rootLocale} from 'next/root-params';
 import {cacheLife, cacheTag} from 'next/cache';
 import {getTopCollections} from '@/lib/vendure/cached';
 import Image from "next/image";
-import { Link } from '@/i18n/navigation';
+import NextLink from 'next/link';
 import {getTranslations} from 'next-intl/server';
 
 
@@ -37,9 +37,9 @@ export async function Footer() {
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="md:col-span-1">
-                        <Link href="/" className="inline-block mb-4">
+                        <NextLink href={`/${locale}`} className="inline-block mb-4">
                             <Image src="/vendure.svg" alt="Vendure" width={40} height={27} className="h-6 w-auto dark:invert" />
-                        </Link>
+                        </NextLink>
                         <p className="text-sm text-muted-foreground text-balance leading-relaxed">
                             {t('description')}
                         </p>
@@ -50,12 +50,12 @@ export async function Footer() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             {collections.map((collection) => (
                                 <li key={collection.id}>
-                                    <Link
-                                        href={`/collection/${collection.slug}`}
+                                    <NextLink
+                                        href={`/${locale}/collection/${collection.slug}`}
                                         className="hover:text-foreground transition-colors"
                                     >
                                         {collection.name}
-                                    </Link>
+                                    </NextLink>
                                 </li>
                             ))}
                         </ul>
@@ -65,28 +65,28 @@ export async function Footer() {
                         <p className="text-sm font-semibold mb-4">{t('customer')}</p>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
-                                <Link
-                                    href="/search"
+                                <NextLink
+                                    href={`/${locale}/search`}
                                     className="hover:text-foreground transition-colors"
                                 >
                                     {t('shopAll')}
-                                </Link>
+                                </NextLink>
                             </li>
                             <li>
-                                <Link
-                                    href="/account/orders"
+                                <NextLink
+                                    href={`/${locale}/account/orders`}
                                     className="hover:text-foreground transition-colors"
                                 >
                                     {t('orders')}
-                                </Link>
+                                </NextLink>
                             </li>
                             <li>
-                                <Link
-                                    href="/account/profile"
+                                <NextLink
+                                    href={`/${locale}/account/profile`}
                                     className="hover:text-foreground transition-colors"
                                 >
                                     {t('account')}
-                                </Link>
+                                </NextLink>
                             </li>
                         </ul>
                     </div>
