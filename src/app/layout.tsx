@@ -58,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({children}: LayoutProps<'/'>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
             >

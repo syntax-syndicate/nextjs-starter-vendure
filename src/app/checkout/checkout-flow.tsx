@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Check } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import ContactStep from './steps/contact-step';
 import ShippingAddressStep from './steps/shipping-address-step';
@@ -78,9 +79,58 @@ export default function CheckoutFlow() {
     return stepOrder.indexOf(step) + 1;
   };
 
+  const stepLabels: Record<CheckoutStep, string> = {
+    contact: 'Contact',
+    shipping: 'Address',
+    delivery: 'Delivery',
+    payment: 'Payment',
+    review: 'Review',
+  };
+
   return (
     <div className="grid lg:grid-cols-3 gap-8">
       <div className="lg:col-span-2">
+        {/* Step Progress Indicator */}
+        <div className="mb-8 hidden sm:block">
+          <div className="flex items-center justify-between">
+            {stepOrder.map((step, index) => (
+              <div key={step} className="flex items-center flex-1 last:flex-0">
+                <div className="flex flex-col items-center gap-1.5">
+                  <div
+                    className={`flex items-center justify-center w-9 h-9 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      completedSteps.has(step)
+                        ? 'bg-primary text-primary-foreground'
+                        : currentStep === step
+                        ? 'bg-primary text-primary-foreground ring-4 ring-primary/20'
+                        : 'bg-muted text-muted-foreground'
+                    }`}
+                  >
+                    {completedSteps.has(step) ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      getStepNumber(step)
+                    )}
+                  </div>
+                  <span className={`text-xs font-medium whitespace-nowrap ${
+                    completedSteps.has(step) || currentStep === step
+                      ? 'text-primary'
+                      : 'text-muted-foreground'
+                  }`}>
+                    {stepLabels[step]}
+                  </span>
+                </div>
+                {index < stepOrder.length - 1 && (
+                  <div className="flex-1 mx-2 mb-5">
+                    <div className={`h-0.5 w-full transition-colors duration-300 ${
+                      completedSteps.has(step) ? 'bg-primary' : 'bg-muted'
+                    }`} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <Accordion
           value={[currentStep]}
           onValueChange={(value) => {

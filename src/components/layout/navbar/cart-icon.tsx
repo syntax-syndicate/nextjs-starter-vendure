@@ -11,7 +11,7 @@ interface CartIconProps {
 
 export function CartIcon({cartItemCount}: CartIconProps) {
     return (
-        <Button render={<Link href="/cart" />} variant="ghost" size="icon" className="relative">
+        <Button render={<Link href="/cart" />} nativeButton={false} variant="ghost" size="icon" className="relative">
             <ShoppingCart className="h-5 w-5"/>
             {cartItemCount > 0 && (
                 <span

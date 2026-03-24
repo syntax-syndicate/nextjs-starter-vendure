@@ -10,7 +10,7 @@ async function Copyright() {
 
     return (
         <div>
-            © {new Date().getFullYear()} Vendure Store. All rights reserved.
+            &copy; {new Date().getFullYear()} Vendure Store. All rights reserved.
         </div>
     )
 }
@@ -25,9 +25,12 @@ export async function Footer() {
         <footer className="border-t border-border mt-auto">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div>
-                        <p className="text-sm font-semibold mb-4 uppercase tracking-wider">
-                            Vendure Store
+                    <div className="md:col-span-1">
+                        <Link href="/" className="inline-block mb-4">
+                            <Image src="/vendure.svg" alt="Vendure" width={40} height={27} className="h-6 w-auto dark:invert" />
+                        </Link>
+                        <p className="text-sm text-muted-foreground text-balance leading-relaxed">
+                            A modern, headless e-commerce storefront built with Vendure and Next.js. Fast, flexible, and ready for production.
                         </p>
                     </div>
 
@@ -48,7 +51,37 @@ export async function Footer() {
                     </div>
 
                     <div>
-                        <h4 className="text-sm font-semibold mb-4">Vendure</h4>
+                        <p className="text-sm font-semibold mb-4">Customer</p>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                            <li>
+                                <Link
+                                    href="/search"
+                                    className="hover:text-foreground transition-colors"
+                                >
+                                    Shop All
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/account/orders"
+                                    className="hover:text-foreground transition-colors"
+                                >
+                                    Orders
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/account/profile"
+                                    className="hover:text-foreground transition-colors"
+                                >
+                                    Account
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p className="text-sm font-semibold mb-4">Vendure</p>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
                                 <a
@@ -77,7 +110,7 @@ export async function Footer() {
                                     rel="noopener noreferrer"
                                     className="hover:text-foreground transition-colors"
                                 >
-                                    Source code
+                                    Source Code
                                 </a>
                             </li>
                         </ul>

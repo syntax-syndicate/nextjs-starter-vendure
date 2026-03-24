@@ -37,18 +37,18 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                     <p className="text-muted-foreground mb-8">
                         Add some items to your cart to get started
                     </p>
-                    <Button render={<Link href="/" />}>Continue Shopping</Button>
+                    <Button render={<Link href="/" />} nativeButton={false}>Continue Shopping</Button>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2 divide-y divide-border">
             {activeOrder.lines.map((line) => (
                 <div
                     key={line.id}
-                    className="flex flex-col sm:flex-row gap-4 p-4 border rounded-lg bg-card"
+                    className="flex flex-col sm:flex-row gap-4 p-4 first:rounded-t-xl last:rounded-b-xl border-x first:border-t last:border-b bg-card transition-colors duration-200 hover:bg-muted/30"
                 >
                     {line.productVariant.product.featuredAsset && (
                         <Link
@@ -60,7 +60,7 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                                 alt={line.productVariant.name}
                                 width={120}
                                 height={120}
-                                className="rounded-md object-cover w-full sm:w-[120px] h-[120px]"
+                                className="rounded-xl object-cover w-full sm:w-[120px] h-[120px]"
                             />
                         </Link>
                     )}
@@ -85,7 +85,7 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                         </p>
 
                         <div className="flex items-center gap-3 mt-4">
-                            <div className="flex items-center gap-2 border rounded-md">
+                            <div className="flex items-center gap-1 border rounded-full bg-muted/50">
                                 <form
                                     action={async () => {
                                         'use server';
@@ -96,14 +96,14 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                                         type="submit"
                                         variant="ghost"
                                         size="icon"
-                                        className="h-9 w-9 rounded-none"
+                                        className="h-9 w-9 rounded-full transition-all duration-200 hover:bg-background"
                                         disabled={line.quantity <= 1}
                                     >
                                         <Minus className="h-4 w-4"/>
                                     </Button>
                                 </form>
 
-                                <span className="w-12 text-center font-medium">{line.quantity}</span>
+                                <span className="w-10 text-center font-semibold tabular-nums transition-all duration-200">{line.quantity}</span>
 
                                 <form
                                     action={async () => {
@@ -115,7 +115,7 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                                         type="submit"
                                         variant="ghost"
                                         size="icon"
-                                        className="h-9 w-9 rounded-none"
+                                        className="h-9 w-9 rounded-full transition-all duration-200 hover:bg-background"
                                     >
                                         <Plus className="h-4 w-4"/>
                                     </Button>
@@ -132,7 +132,7 @@ export async function CartItems({activeOrder}: { activeOrder: ActiveOrder | null
                                     type="submit"
                                     variant="ghost"
                                     size="icon"
-                                    className="h-9 w-9 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                    className="h-9 w-9 rounded-full text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors duration-200"
                                 >
                                     <X className="h-5 w-5"/>
                                 </Button>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';
+import {Lock} from 'lucide-react';
 import {Price} from '@/components/commerce/price';
 
 type ActiveOrder = {
@@ -16,7 +17,7 @@ type ActiveOrder = {
 
 export async function OrderSummary({activeOrder}: { activeOrder: ActiveOrder }) {
     return (
-        <div className="border rounded-lg p-6 bg-card sticky top-4">
+        <div className="border rounded-xl p-6 bg-card sticky top-24 shadow-sm">
             <h2 className="text-xl font-bold mb-4">Order Summary</h2>
 
             <div className="space-y-2 mb-4">
@@ -49,17 +50,22 @@ export async function OrderSummary({activeOrder}: { activeOrder: ActiveOrder }) 
             </div>
 
             <div className="border-t pt-4 mb-6">
-                <div className="flex justify-between font-bold text-lg">
+                <div className="flex justify-between items-baseline text-lg font-bold">
                     <span>Total</span>
-                    <span>
+                    <span className="text-2xl">
                         <Price value={activeOrder.totalWithTax} currencyCode={activeOrder.currencyCode}/>
                     </span>
                 </div>
             </div>
 
-            <Button render={<Link href="/checkout" />} className="w-full" size="lg">Proceed to Checkout</Button>
+            <Button render={<Link href="/checkout" />} nativeButton={false} className="w-full" size="lg">Proceed to Checkout</Button>
 
-            <Button render={<Link href="/" />} variant="outline" className="w-full mt-2">Continue Shopping</Button>
+            <div className="flex items-center justify-center gap-1.5 mt-3 text-xs text-muted-foreground">
+                <Lock className="h-3 w-3" />
+                <span>Secure Checkout</span>
+            </div>
+
+            <Button render={<Link href="/" />} nativeButton={false} variant="outline" className="w-full mt-3">Continue Shopping</Button>
         </div>
     );
 }

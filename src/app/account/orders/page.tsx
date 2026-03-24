@@ -65,7 +65,36 @@ export default async function OrdersPage(props: PageProps<'/account/orders'>) {
                 </div>
             ) : (
                 <>
-                    <div className="border rounded-lg">
+                    {/* Mobile: Card-based layout */}
+                    <div className="md:hidden space-y-3">
+                        {orders.map((order) => (
+                            <Link
+                                key={order.id}
+                                href={`/account/orders/${order.code}`}
+                                className="block border rounded-xl p-4 bg-card hover:bg-muted/30 transition-colors duration-200"
+                            >
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="font-semibold">#{order.code}</span>
+                                    <OrderStatusBadge state={order.state}/>
+                                </div>
+                                <div className="flex items-center justify-between text-sm">
+                                    <span className="text-muted-foreground">{formatDate(order.createdAt)}</span>
+                                    <span className="font-medium text-base">
+                                        <Price value={order.totalWithTax} currencyCode={order.currencyCode}/>
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between mt-2">
+                                    <span className="text-xs text-muted-foreground">
+                                        {order.lines.length} {order.lines.length === 1 ? 'item' : 'items'}
+                                    </span>
+                                    <ArrowRightIcon className="h-4 w-4 text-muted-foreground"/>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+
+                    {/* Desktop: Table layout */}
+                    <div className="hidden md:block border rounded-lg">
                         <Table>
                             <TableHeader className="bg-muted">
                                 <TableRow>
@@ -80,7 +109,7 @@ export default async function OrdersPage(props: PageProps<'/account/orders'>) {
                                 {orders.map((order) => (
                                     <TableRow key={order.id} className="hover:bg-muted/50">
                                         <TableCell className="font-medium">
-                                            <Button render={<Link href={`/account/orders/${order.code}`} />} variant="outline">
+                                            <Button nativeButton={false} render={<Link href={`/account/orders/${order.code}`} />} variant="outline">
                                                     {order.code} <ArrowRightIcon/>
                                             </Button>
                                         </TableCell>

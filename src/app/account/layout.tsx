@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
-import Link from 'next/link';
 import {Package, User, MapPin} from 'lucide-react';
 import {noIndexRobots} from '@/lib/metadata';
+import {AccountNavLinks} from '@/components/account/account-nav-links';
 
 export const metadata: Metadata = {
     robots: noIndexRobots(),
@@ -16,22 +16,17 @@ const navItems = [
 export default async function AccountLayout({children}: LayoutProps<'/account'>) {
     return (
         <div className="container mx-auto px-4 py-30">
+            {/* Mobile: horizontal tab bar */}
+            <div className="md:hidden mb-6">
+                <AccountNavLinks items={navItems} layout="horizontal" />
+            </div>
+
             <div className="flex gap-8">
-                <aside className="w-64 shrink-0">
-                    <nav className="space-y-1">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className="flex items-center gap-3 px-4 py-2 text-sm font-medium rounded-md hover:bg-gray-100 transition-colors"
-                            >
-                                <item.icon className="h-5 w-5"/>
-                                {item.label}
-                            </Link>
-                        ))}
-                    </nav>
+                {/* Desktop: sidebar */}
+                <aside className="hidden md:block w-64 shrink-0">
+                    <AccountNavLinks items={navItems} layout="vertical" />
                 </aside>
-                <main className="flex-1">
+                <main className="flex-1 min-w-0">
                     {children}
                 </main>
             </div>

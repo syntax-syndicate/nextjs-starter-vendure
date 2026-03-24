@@ -5,6 +5,7 @@ import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import {Button} from '@/components/ui/button';
 import {Label} from '@/components/ui/label';
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
+import {Separator} from '@/components/ui/separator';
 import {ShoppingCart, CheckCircle2} from 'lucide-react';
 import {addToCart} from '@/app/product/[slug]/actions';
 import {toast} from 'sonner';
@@ -137,24 +138,26 @@ export function ProductInfo({product, searchParams}: ProductInfoProps) {
 
     return (
         <div className="space-y-6">
-            {/* Product Title */}
-            <div>
-                <h1 className="text-3xl font-bold">{product.name}</h1>
+            {/* Product Title & Price */}
+            <div className="space-y-2">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{product.name}</h1>
                 {selectedVariant && (
-                    <p className="text-2xl font-bold mt-2">
+                    <p className="text-2xl md:text-3xl text-muted-foreground font-semibold mt-3">
                         <Price value={selectedVariant.priceWithTax}/>
                     </p>
                 )}
             </div>
 
+            <Separator />
+
             {/* Product Description */}
-            <div className="prose prose-sm max-w-none">
+            <div className="prose prose-sm max-w-none text-muted-foreground">
                 <div dangerouslySetInnerHTML={{__html: product.description}}/>
             </div>
 
             {/* Option Groups */}
             {product.optionGroups.length > 0 && (
-                <div className="space-y-4">
+                <div className="space-y-5">
                     {product.optionGroups.map((group) => (
                         <div key={group.id} className="space-y-3">
                             <Label className="text-base font-semibold">
@@ -174,7 +177,7 @@ export function ProductInfo({product, searchParams}: ProductInfoProps) {
                                             />
                                             <Label
                                                 htmlFor={option.id}
-                                                className="flex items-center justify-center rounded-md border-2 border-muted bg-popover px-4 py-3 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer transition-colors"
+                                                className="flex items-center justify-center rounded-lg border-2 border-muted bg-popover px-4 py-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary peer-data-[state=checked]:ring-2 peer-data-[state=checked]:ring-primary/20 peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
                                             >
                                                 {option.name}
                                             </Label>
@@ -191,18 +194,24 @@ export function ProductInfo({product, searchParams}: ProductInfoProps) {
             {selectedVariant && (
                 <div className="text-sm">
                     {isInStock ? (
-                        <span className="text-green-600 font-medium">In Stock</span>
+                        <span className="inline-flex items-center gap-1.5 text-green-600 font-medium">
+                            <span className="h-2 w-2 rounded-full bg-green-600" />
+                            In Stock
+                        </span>
                     ) : (
-                        <span className="text-destructive font-medium">Out of Stock</span>
+                        <span className="inline-flex items-center gap-1.5 text-destructive font-medium">
+                            <span className="h-2 w-2 rounded-full bg-destructive" />
+                            Out of Stock
+                        </span>
                     )}
                 </div>
             )}
 
             {/* Add to Cart Button */}
-            <div className="pt-4">
+            <div className="pt-2 space-y-3">
                 <Button
                     size="lg"
-                    className="w-full"
+                    className="w-full h-12 text-base font-semibold rounded-lg"
                     disabled={!canAddToCart || isPending}
                     onClick={handleAddToCart}
                 >

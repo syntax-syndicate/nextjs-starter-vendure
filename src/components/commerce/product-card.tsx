@@ -15,15 +15,15 @@ export function ProductCard({product: productProp}: ProductCardProps) {
     return (
         <Link
             href={`/product/${product.slug}`}
-            className="group block bg-card rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow"
+            className="group block bg-card rounded-xl overflow-hidden border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
         >
-            <div className="aspect-square relative bg-muted">
+            <div className="aspect-square relative bg-muted overflow-hidden">
                 {product.productAsset ? (
                     <Image
                         src={product.productAsset.preview}
                         alt={product.productName}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="object-cover group-hover:scale-105 group-hover:opacity-90 transition-all duration-500"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                 ) : (
@@ -33,15 +33,16 @@ export function ProductCard({product: productProp}: ProductCardProps) {
                 )}
             </div>
             <div className="p-4 space-y-2">
-                <h3 className="font-medium line-clamp-2 group-hover:text-primary transition-colors">
+                <h3 className="font-medium leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                     {product.productName}
                 </h3>
                 <Suspense fallback={<div className="h-8 w-36 rounded bg-muted"></div>}>
-                    <p className="text-lg font-bold">
+                    <p className="text-lg font-bold tracking-tight">
                         {product.priceWithTax.__typename === 'PriceRange' ? (
                             product.priceWithTax.min !== product.priceWithTax.max ? (
                                 <>
-                                    from <Price value={product.priceWithTax.min}/>
+                                    <span className="text-xs font-normal text-muted-foreground mr-1">From</span>
+                                    <Price value={product.priceWithTax.min}/>
                                 </>
                             ) : (
                                 <Price value={product.priceWithTax.min}/>

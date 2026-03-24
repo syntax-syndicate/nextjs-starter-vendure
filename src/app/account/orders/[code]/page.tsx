@@ -47,7 +47,7 @@ export default async function OrderDetailPage(props: PageProps<'/account/orders/
     return (
         <div>
             <div className="mb-6">
-                <Button render={<Link href="/account/orders" />} variant="ghost" size="sm" className="mb-4">
+                <Button render={<Link href="/account/orders" />} nativeButton={false} variant="ghost" size="sm" className="mb-4">
                         <ChevronLeft className="h-4 w-4 mr-2"/>
                         Back to Orders
                 </Button>

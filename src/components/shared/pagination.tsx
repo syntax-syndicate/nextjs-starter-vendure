@@ -54,7 +54,9 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
             <Button
                 variant="outline"
                 size="icon"
+                className="rounded-full"
                 render={currentPage !== 1 ? <Link href={createPageUrl(currentPage - 1)} /> : undefined}
+                nativeButton={currentPage !== 1 ? false : undefined}
                 disabled={currentPage === 1}
             >
                 <ChevronLeft className="h-4 w-4"/>
@@ -77,7 +79,9 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
                         key={pageNum}
                         variant={isActive ? 'default' : 'outline'}
                         size="icon"
+                        className="rounded-full"
                         render={!isActive ? <Link href={createPageUrl(pageNum)} /> : undefined}
+                        nativeButton={!isActive ? false : undefined}
                         disabled={isActive}
                     >
                         {pageNum}
@@ -88,7 +92,9 @@ export function Pagination({currentPage, totalPages}: PaginationProps) {
             <Button
                 variant="outline"
                 size="icon"
+                className="rounded-full"
                 render={currentPage !== totalPages ? <Link href={createPageUrl(currentPage + 1)} /> : undefined}
+                nativeButton={currentPage !== totalPages ? false : undefined}
                 disabled={currentPage === totalPages}
             >
                 <ChevronRight className="h-4 w-4"/>
